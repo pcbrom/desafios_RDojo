@@ -1,12 +1,8 @@
 
-Desafio: Localidade e Operadora
-
-Dificuldade: Faixa Branca
-
-RDojo.com.br
-
+Desafio: Localidade e Operadora<br>
+Dificuldade: Faixa Branca<br>
+RDojo.com.br<br>
 22 de julho de 2018
-
 
 Prezado(a),
 
