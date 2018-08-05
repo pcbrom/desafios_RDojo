@@ -5,7 +5,7 @@ RDojo.com.br<br>
 
 Prezado(a),
 
-Bem vindo ao desafio nº 2 do [RDojo](http://rdojo.com.br/). As soluções dos desafios estão no [github](https://github.com/pcbrom/desafios_RDojo){target="_blank"}.
+Bem vindo ao desafio nº 2 do [RDojo](http://rdojo.com.br/). As soluções dos desafios estão no [github](https://github.com/pcbrom/desafios_RDojo).
 
 Este desafio consiste em:
 
