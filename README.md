@@ -3,4 +3,7 @@ Resositório dos desafios do RDojo.com.br
 
 Participantes com solução:
 
-+ [Lucas-Armand](https://github.com/Lucas-Armand/RDojo)
+Participante   |   Desafio   |   GitHub
+---   |   ---   |   ---
+Pedro-Brom    |    01	   |    https://github.com/pcbrom/desafios_RDojo
+Lucas-Armand  |    01    |    https://github.com/Lucas-Armand/RDojo
