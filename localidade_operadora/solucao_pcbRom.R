@@ -24,6 +24,9 @@ URL_telefones = "https://www.dropbox.com/s/0htsalejlbgegks/localidade_operadora.
 URL_operadoras = "http://www.teleco.com.br/num_cel.asp"
 URL_ddd = "https://pt.wikipedia.org/wiki/N%C3%BAmeros_de_telefone_no_Brasil"
 
+###############################################################################
+# PARTE 01 
+###############################################################################
 
 # funcao para coleta
 
@@ -99,4 +102,56 @@ table(prefixos$Estado) %>%                          # contando frequencia
   geom_bar(stat = "identity") +                     # criando as barras
   coord_flip()                                      # alterando as coordenadas para melhorar a estetica
   
-### PARTE 02 NO PROXIMO DOMINGO
+
+###############################################################################
+# PARTE 02
+###############################################################################
+
+# COLETANDO AS OPERADORAS POR COMPLETO - ver o arquivo: bot_coletor.R
+
+# Conversei com o Lucas do RDojo e fizemos alguns ajustes na tabela de referencia,
+# mas ainda nao havia ficado 100% para analise de dados.
+
+# Particularmente setava bem insatisfeito com o a tabela que coloquei como referencia
+# entao apelei e montei uma tabela mais fiel a realidade.
+
+# Essa parte das operadoras pode mudar para faixa verde pra cima hahaha.
+
+
+# AJUSTANDO OS PREFIXOS
+
+prefixos = prefixos %>%
+  mutate(cel_prefixo = telefones %>%                # criando uma nova coluna com as seguintes operacoes
+           str_extract(" [0-9]{4,5}") %>%           # extrair os primeiros 4 digitos. os telefones de fora ficarao como NA
+           substr(start = 2, stop = 7) %>%          # extrair apenas os caracteres de interesse
+           ifelse(nchar(.) == 4, paste0("9", .), .)         # Dica do Lucas: Verificar se o numero tem o 9 antes
+  )
+prefixos
+
+# lendo o arquivo das operadoras
+
+operadoras = read.csv("operadoras_compilado.csv")
+
+oper_cels = character(0)
+for (i in 1:nrow(prefixos)) {
+  operadoras.sub = operadoras[grep(paste0("(", prefixos$Prefixo[i], ")"), operadoras$ddd), ]
+  linha = grep(paste0("(", prefixos$cel_prefixo[i], ")"), operadoras.sub$lista_numeros)
+  if(length(linha) == 0) {
+    oper_cels[i] = "Fora do Brasil"
+  } else {
+    oper_cels[i] = as.character(operadoras.sub$operadora[linha])
+  }
+}
+
+prefixos = cbind.data.frame(prefixos, oper_cels)
+
+# grafico
+
+table(prefixos$oper_cels) %>%
+  as.data.frame() %>%
+  ggplot(., aes(x = reorder(Var1, Freq), y = Freq, fill = Freq)) +
+  labs(title = "Usuários do grupo RDojo no WhatsApp",
+       subtitle = "Operadoras", y = "quantidade", x = "localidade", 
+       caption = "") +
+  geom_bar(stat = "identity") +
+  coord_flip()
