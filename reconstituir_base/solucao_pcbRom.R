@@ -30,7 +30,7 @@ unlink("./specdata", recursive = T)
 
 # FUNCAO PARA EXECUTAR O TRABALHO ---------------------------------------------
 
-get_data = function(arquivo) {
+get_data = function() {
   
   # preparacao
   arquivo = tcltk::tk_choose.files()
